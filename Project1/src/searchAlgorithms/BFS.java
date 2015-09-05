@@ -9,15 +9,15 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class BFS extends Search{
+public class BFS {
 	// Breadth First Search 
 	// FIFO queue
 	// look in four directions. if not a % sign, then add to frontier
 	// when node added to queue, check if it's goal
 	
 	public static List<Index> search(char[][] maze) {
-		Index starting = getStartingIndex(maze);
-		Map<Index, Index[]> map = generateAdjacencyList(maze);
+		Index starting = SearchUtils.getStartingIndex(maze);
+		Map<Index, Index[]> map = SearchUtils.generateAdjacencyList(maze);
 		Queue<Index> frontier = new LinkedList<>();
 		Set<Index> alreadyVisited = new HashSet<>();
 		List<Index> solutionPath = new ArrayList<>();
@@ -31,7 +31,7 @@ public class BFS extends Search{
 			for (Index i : adjNodes) {
 				if (!alreadyVisited.contains(i)) {
 					i.prev = expand;
-					if (isGoal(i, maze)) {
+					if (SearchUtils.isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {
 							solutionPath.add(new Index(p.row, p.column, null));	
 						}

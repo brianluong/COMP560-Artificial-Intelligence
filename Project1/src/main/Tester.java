@@ -3,8 +3,9 @@ package main;
 import java.util.List;
 
 import searchAlgorithms.BFS;
+import searchAlgorithms.DFS;
 import searchAlgorithms.Index;
-import searchAlgorithms.SearchUtils;
+import searchAlgorithms.SearchIOHelper;
 
 public class Tester {
 
@@ -13,10 +14,9 @@ public class Tester {
 		String[] mazeFilePaths = {"../mazes/smallMaze.txt", "../mazes/mediumMaze.txt", "../mazes/bigMaze.txt"};
 		
 		for (String mazeFilePath : mazeFilePaths) {
-			char[][] maze = SearchUtils.generate2DArrayMazeFromInput(mazeFilePath);
-			List<Index> solution = BFS.search(maze);
-			SearchUtils.printSearchResults(maze, solution);
+			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeFilePath);
+			List<Index> solution = DFS.search(maze);
+			SearchIOHelper.printSearchResults(maze, solution);
 		}
 	}
-
 }
