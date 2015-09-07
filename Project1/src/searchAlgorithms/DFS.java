@@ -2,16 +2,18 @@ package searchAlgorithms;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
-public class DFS {
+public class DFS extends Search{
 	
-	public static List<Index> search(char[][] maze) {
+	public DFS(char[][] maze) {
+		super(maze);
+	}
+	
+	public List<Index> search() {
 		Index starting = SearchUtils.getStartingIndex(maze);
 		Map<Index, Index[]> map = SearchUtils.generateAdjacencyList(maze);
 		Stack<Index> frontier = new Stack<>();

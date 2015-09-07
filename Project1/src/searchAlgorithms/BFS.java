@@ -9,24 +9,23 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class BFS {
-	// Breadth First Search 
-	// FIFO queue
-	// look in four directions. if not a % sign, then add to frontier
-	// when node added to queue, check if it's goal
+public class BFS extends Search{
 	
-	public static List<Index> search(char[][] maze) {
-		Index starting = SearchUtils.getStartingIndex(maze);
-		Map<Index, Index[]> map = SearchUtils.generateAdjacencyList(maze);
+	public BFS(char[][] maze) {
+		super(maze);
+	}
+	
+	public List<Index> search() {
 		Queue<Index> frontier = new LinkedList<>();
 		Set<Index> alreadyVisited = new HashSet<>();
 		List<Index> solutionPath = new ArrayList<>();
 		
+		Index starting = SearchUtils.getStartingIndex(maze);
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			Index expand = frontier.poll();
 			alreadyVisited.add(expand);
-			Index[] adjNodes = map.get(expand);
+			Index[] adjNodes = adjList.get(expand);
 			
 			for (Index i : adjNodes) {
 				if (!alreadyVisited.contains(i)) {

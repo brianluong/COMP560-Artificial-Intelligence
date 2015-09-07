@@ -5,14 +5,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 
-public class GreedyBestFirstSearch {
+public class GreedyBestFirstSearch extends InformedSearch {
 
-	
-	public static List<Index> search(char[][] maze) {
+	public GreedyBestFirstSearch(char[][] maze) {
+		super(maze);
+	}
+
+	public List<Index> search() {
 		Index starting = SearchUtils.getStartingIndex(maze);
-		Map<Index, Index[]> map = SearchUtils.generateAdjacencyList(maze);
 		List<Index> frontier = new ArrayList<>();
 		Index goal = SearchUtils.getGoalIndex(maze);
 		Set<Index> explored = new HashSet<>();
@@ -23,7 +24,7 @@ public class GreedyBestFirstSearch {
 			Index expand = getClosest(frontier, goal);
 			frontier.remove(expand);
 			explored.add(expand);
-			Index[] adjNodes = map.get(expand);
+			Index[] adjNodes = adjList.get(expand);
 			
 			for (Index i : adjNodes) {
 				if (!explored.contains(i)) {
@@ -41,21 +42,17 @@ public class GreedyBestFirstSearch {
 		return solutionPath;
 	}
 	
-	private static Index getClosest(List<Index> frontier, Index goal) {
+	// f(n) = h(n)
+	public Index getClosest(List<Index> frontier, Index goal) {
 		int lowestManhattanDistance = Integer.MAX_VALUE;
 		Index closestIndex = null;
 		for (Index i : frontier) {
-			int currentManhattanDistance = GreedyBestFirstSearch.getManhattanDistance(i, goal);
+			int currentManhattanDistance = getManhattanDistance(i, goal);
 			if (currentManhattanDistance < lowestManhattanDistance) {
 				lowestManhattanDistance = currentManhattanDistance;
 				closestIndex = i;
 			}
 		}
 		return closestIndex;
-	}
-	
-	// heuristic function
-	public static int getManhattanDistance(Index current, Index goal) {
-		return Math.abs(goal.column - current.column) + Math.abs(goal.row - current.column);
 	}
 }
