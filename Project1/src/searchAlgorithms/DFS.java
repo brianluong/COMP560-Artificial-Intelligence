@@ -17,17 +17,16 @@ public class DFS extends Search{
 		Index starting = SearchUtils.getStartingIndex(maze);
 		Map<Index, Index[]> map = SearchUtils.generateAdjacencyList(maze);
 		Stack<Index> frontier = new Stack<>();
-		Set<Index> alreadyVisited = new HashSet<>();
 		List<Index> solutionPath = new ArrayList<>();
 		
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			Index expand = frontier.pop();
-			alreadyVisited.add(expand);
+			expanded.add(expand);
 			Index[] adjNodes = map.get(expand);
 			
 			for (Index i : adjNodes) {
-				if (!alreadyVisited.contains(i)) {
+				if (!expanded.contains(i)) {
 					i.prev = expand;
 					if (SearchUtils.isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {

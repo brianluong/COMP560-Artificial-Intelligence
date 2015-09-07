@@ -17,18 +17,17 @@ public class BFS extends Search{
 	
 	public List<Index> search() {
 		Queue<Index> frontier = new LinkedList<>();
-		Set<Index> alreadyVisited = new HashSet<>();
 		List<Index> solutionPath = new ArrayList<>();
 		
 		Index starting = SearchUtils.getStartingIndex(maze);
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			Index expand = frontier.poll();
-			alreadyVisited.add(expand);
+			expanded.add(expand);
 			Index[] adjNodes = adjList.get(expand);
 			
 			for (Index i : adjNodes) {
-				if (!alreadyVisited.contains(i)) {
+				if (!expanded.contains(i)) {
 					i.prev = expand;
 					if (SearchUtils.isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {

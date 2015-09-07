@@ -18,13 +18,4 @@ public abstract class InformedSearch extends Search{
 	public int getManhattanDistance(Index current, Index goal) {
 		return Math.abs(goal.column - current.column) + Math.abs(goal.row - current.column);
 	}
-
-	// function to find path lengths g(n)
-	public int getPathLength(Index index) {
-		int length = 0;
-		for (Index p = index; p != null; p = p.prev) {
-			length++;
-		}
-		return length;
-	}
 }

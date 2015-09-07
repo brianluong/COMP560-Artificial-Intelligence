@@ -12,7 +12,7 @@ public class SearchUtils {
 	public static final char WALL = '%';
 			
 	public static boolean isGoal(Index ind, char[][] maze) {
-		if (maze[ind.row][ind.column] == START) {
+		if (maze[ind.row][ind.column] == GOAL) {
 			return true;
 		} else {
 			return false;

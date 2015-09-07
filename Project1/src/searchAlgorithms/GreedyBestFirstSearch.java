@@ -16,18 +16,17 @@ public class GreedyBestFirstSearch extends InformedSearch {
 		Index starting = SearchUtils.getStartingIndex(maze);
 		List<Index> frontier = new ArrayList<>();
 		Index goal = SearchUtils.getGoalIndex(maze);
-		Set<Index> explored = new HashSet<>();
 		List<Index> solutionPath = new ArrayList<>();
 		
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			Index expand = getClosest(frontier, goal);
 			frontier.remove(expand);
-			explored.add(expand);
+			expanded.add(expand);
 			Index[] adjNodes = adjList.get(expand);
 			
 			for (Index i : adjNodes) {
-				if (!explored.contains(i)) {
+				if (!expanded.contains(i)) {
 					i.prev = expand;
 					if (SearchUtils.isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {
@@ -42,6 +41,7 @@ public class GreedyBestFirstSearch extends InformedSearch {
 		return solutionPath;
 	}
 	
+	// f(n), function to find next node to expand
 	// f(n) = h(n)
 	public Index getClosest(List<Index> frontier, Index goal) {
 		int lowestManhattanDistance = Integer.MAX_VALUE;

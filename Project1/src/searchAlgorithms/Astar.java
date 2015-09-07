@@ -15,18 +15,17 @@ public class Astar extends InformedSearch {
 	public List<Index> search() {
 		Index starting = SearchUtils.getStartingIndex(maze);
 		List<Index> frontier = new ArrayList<>();
-		Set<Index> explored = new HashSet<>();
 		List<Index> solutionPath = new ArrayList<>();
 		
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			Index expand = getClosest(frontier, goal);
 			frontier.remove(expand);
-			explored.add(expand);
+			expanded.add(expand);
 			Index[] adjNodes = adjList.get(expand);
 			
 			for (Index i : adjNodes) {
-				if (!explored.contains(i)) {
+				if (!expanded.contains(i)) {
 					i.prev = expand;
 					if (SearchUtils.isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {
