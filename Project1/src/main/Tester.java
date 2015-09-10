@@ -45,6 +45,6 @@ public class Tester {
 		//Ben's part
 		
 		// PART 3
-		//Stephen's part
+		//Stephen's party
 	}
 }
