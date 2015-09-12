@@ -11,6 +11,7 @@ public class Index {
 		prev = p;
 	}
 	
+	// todo make this a better hash code function
 	@Override
 	public int hashCode() {
 		return (int) (Math.pow(this.row, 7) + this.column*4734);
