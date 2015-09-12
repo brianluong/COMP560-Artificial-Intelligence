@@ -25,6 +25,7 @@ public class BFS extends Search{
 			Index expand = frontier.poll();
 			expanded.add(expand);
 			Index[] adjNodes = adjList.get(expand);
+//			System.out.println("" + expand.row + ", " + expand.column);
 			
 			for (Index i : adjNodes) {
 				if (!expanded.contains(i)) {
@@ -33,12 +34,14 @@ public class BFS extends Search{
 						for (Index p = i; p != null; p = p.prev) {
 							solutionPath.add(new Index(p.row, p.column, null));	
 						}
+						return solutionPath;
 					} else {
 						frontier.add(i);
 					}	
 				}
 			}
 		}
+		
 		return solutionPath;
 	}
 }

@@ -31,6 +31,7 @@ public class Astar extends InformedSearch {
 						for (Index p = i; p != null; p = p.prev) {
 							solutionPath.add(new Index(p.row, p.column, null));	
 						}
+						return solutionPath;
 					} else {
 						frontier.add(i);
 					}	

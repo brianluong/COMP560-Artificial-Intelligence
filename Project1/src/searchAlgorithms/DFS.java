@@ -24,6 +24,7 @@ public class DFS extends Search{
 			Index expand = frontier.pop();
 			expanded.add(expand);
 			Index[] adjNodes = map.get(expand);
+//			System.out.println("" + expand.row + ", " + expand.column);
 			
 			for (Index i : adjNodes) {
 				if (!expanded.contains(i)) {
@@ -32,6 +33,7 @@ public class DFS extends Search{
 						for (Index p = i; p != null; p = p.prev) {
 							solutionPath.add(new Index(p.row, p.column, null));	
 						}
+						return solutionPath;
 					} else {
 						frontier.add(i);
 					}	
