@@ -67,6 +67,25 @@ public class SearchIOHelper {
 		System.out.println("Total Nodes Expanded: " + expanded.size());
 	}
 	
+	public static void printMazeWithSolution2(char[][] maze, List<CheeseIndex> solutionPath, Set<CheeseIndex> expanded) {
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+				Index ind = new Index(i, j, null);
+				if (solutionPath.contains(ind) && maze[i][j] != SearchUtils.START && maze[i][j] != SearchUtils.GOAL) {
+					System.out.print('x');
+				} else {
+					System.out.print(maze[i][j]);	
+				}
+			}
+			System.out.println();
+		}
+		System.out.println("Total Path Cost: " + solutionPath.size());
+		System.out.println("Total Nodes Expanded: " + expanded.size());
+	}
+	
+	
+	
+	
 	public static void printSearchResults(char[][] maze, List<Index> solutionPath, Set<Index> expanded) {
 		System.out.println("Unsolved Maze");
 		printMaze(maze);

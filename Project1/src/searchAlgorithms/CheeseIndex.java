@@ -6,6 +6,11 @@ import java.util.List;
 public class CheeseIndex extends Index {
 
 	List<CheeseIndex> cheeses;
+	
+	public CheeseIndex() {
+		cheeses = new ArrayList<>();
+	}
+	
 	public CheeseIndex(int r, int c, Index p) {
 		super(r, c, p);
 		cheeses = new ArrayList<>();

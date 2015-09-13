@@ -5,6 +5,9 @@ public class Index {
 	int column;
 	Index prev;
 	
+	public Index() {
+		
+	}
 	public Index(int r, int c, Index p) {
 		row = r;
 		column = c;
