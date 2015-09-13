@@ -66,19 +66,19 @@ public class Tester {
 
 		//Stephen's part: Testing maze difficulty for A-star and GBFS
 		
-		char[][] aStarHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/aStarHard.txt");
+//		char[][] aStarHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/aStarHard.txt");
 		//char[][] GBFS = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/GBFSHard.txt");
 		
-		System.out.println("TESTING MAZE DIFFICULTY...\n");
-		System.out.println("A STAR DIFFICULT");
-		Search aStar = new Astar(aStarHard);
-		solution = aStar.search();
-		SearchIOHelper.printMazeWithSolution(aStarHard, solution, aStar.getExpandedSet());
-		
-		System.out.println("COMPARING WITH GBFS");
-		Search gbfs_aStarHard = new GreedyBestFirstSearch(aStarHard);
-		solution = gbfs_aStarHard.search();
-		SearchIOHelper.printMazeWithSolution(aStarHard, solution, gbfs_aStarHard.getExpandedSet());
+//		System.out.println("TESTING MAZE DIFFICULTY...\n");
+//		System.out.println("A STAR DIFFICULT");
+//		Search aStar = new Astar(aStarHard);
+//		solution = aStar.search();
+//		SearchIOHelper.printMazeWithSolution(aStarHard, solution, aStar.getExpandedSet());
+//		
+//		System.out.println("COMPARING WITH GBFS");
+//		Search gbfs_aStarHard = new GreedyBestFirstSearch(aStarHard);
+//		solution = gbfs_aStarHard.search();
+//		SearchIOHelper.printMazeWithSolution(aStarHard, solution, gbfs_aStarHard.getExpandedSet());
 		
 	}
 }
