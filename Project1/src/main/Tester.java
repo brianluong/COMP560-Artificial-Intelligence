@@ -47,8 +47,6 @@ public class Tester {
 		//Ben's part
 		
 		// PART 3
-<<<<<<< HEAD
-		
 		for (String mazeCheeseFilePath : mazeCheeseFilePaths) {
 			
 			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeCheeseFilePath);
@@ -64,7 +62,6 @@ public class Tester {
 			System.out.println("Tricky Cheese");
 			
 		}
-=======
 		//Stephen's part: Testing maze difficulty for A-star and GBFS
 		
 		char[][] aStarHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/aStarHard.txt");
@@ -80,6 +77,5 @@ public class Tester {
 		Search gbfs_aStarHard = new GreedyBestFirstSearch(aStarHard);
 		solution = gbfs_aStarHard.search();
 		SearchIOHelper.printMazeWithSolution(aStarHard, solution, gbfs_aStarHard.getExpandedSet());
->>>>>>> branch 'master' of https://github.com/brianluong/COMP560-Artificial-Intelligence.git
 	}
 }
