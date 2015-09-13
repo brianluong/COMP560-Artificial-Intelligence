@@ -144,7 +144,18 @@ public class SearchUtils {
 		return ind;
 	}
 	
-
+	public static CheeseIndex getStartingCheeseIndex(char[][] maze) {
+		CheeseIndex ind = null;
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+				if (maze[i][j] == START) {
+					ind = new CheeseIndex(i, j, null);
+				}
+			}
+		}
+		return ind;
+	}
+	
 	public static Index getGoalIndex(char[][] maze) {
 		Index ind = null;
 		for (int i = 0; i < maze.length; i++) {
@@ -155,5 +166,17 @@ public class SearchUtils {
 			}
 		}
 		return ind;
+	}
+	
+	public static List<CheeseIndex> getCheeseFromMaze(char[][] maze) {
+		List<CheeseIndex> cheeses = new ArrayList<>();
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+				if (maze[i][j] == '.') {
+					cheeses.add(new CheeseIndex(i, j, null));
+				}
+			}
+		}
+		return cheeses;
 	}
 }
