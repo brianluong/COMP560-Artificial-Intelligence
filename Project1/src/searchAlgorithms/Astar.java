@@ -20,12 +20,14 @@ public class Astar extends InformedSearch<Index> {
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			Index expand = getClosest(frontier, goal);
+			System.out.println("Expanded is " + expand.row  + " " + expand.column);
 			frontier.remove(expand);
 			expanded.add(expand);
 			Index[] adjNodes = adjList.get(expand);
 			
 			for (Index i : adjNodes) {
-				if (!expanded.contains(i)) {
+				// need to check for frontier
+				if (!expanded.contains(i) && !frontier.contains(i)) { 
 					i.prev = expand;
 					if (isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {
