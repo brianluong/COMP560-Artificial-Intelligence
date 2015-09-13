@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class BFS extends Search{
+public class BFS extends Search<Index>{
 	
-	public BFS(char[][] maze) {
-		super(maze);
+	public BFS(char[][] maze) throws InstantiationException, IllegalAccessException {
+		super(maze, Index.class);
 	}
 	
 	public List<Index> search() {
@@ -30,7 +30,7 @@ public class BFS extends Search{
 			for (Index i : adjNodes) {
 				if (!expanded.contains(i)) {
 					i.prev = expand;
-					if (SearchUtils.isGoal(i, maze)) {
+					if (isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {
 							solutionPath.add(new Index(p.row, p.column, null));	
 						}

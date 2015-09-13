@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-public class DFS extends Search{
+public class DFS extends Search<Index>{
 	
-	public DFS(char[][] maze) {
-		super(maze);
+	public DFS(char[][] maze) throws InstantiationException, IllegalAccessException {
+		super(maze, Index.class);
 	}
 	
 	public List<Index> search() {
@@ -29,7 +29,7 @@ public class DFS extends Search{
 			for (Index i : adjNodes) {
 				if (!expanded.contains(i)) {
 					i.prev = expand;
-					if (SearchUtils.isGoal(i, maze)) {
+					if (isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {
 							solutionPath.add(new Index(p.row, p.column, null));	
 						}

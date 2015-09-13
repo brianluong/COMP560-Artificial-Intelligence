@@ -3,41 +3,41 @@ package searchAlgorithms;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AstarCheese extends InformedSearch{
+public class AstarCheese extends InformedSearch<CheeseIndex>{
 
 	List<CheeseIndex> cheeses;
-	public AstarCheese(char[][] maze) {
-		super(maze);
+	public AstarCheese(char[][] maze) throws InstantiationException, IllegalAccessException {
+		super(maze, CheeseIndex.class);
 		goal = null; // goal is to eat all cheeses
-		cheeses = SearchUtils.getCheeseFromMaze(maze);
+		cheeses = getCheeseFromMaze(maze);
 	}
 
-	public List<Index> search() {
-		CheeseIndex starting = SearchUtils.getStartingCheeseIndex(maze);
+	public List<CheeseIndex> search() throws InstantiationException, IllegalAccessException {
+		CheeseIndex starting = getStartingIndex(maze);
 		List<CheeseIndex> frontier = new ArrayList<>();
-		List<Index> solutionPath = new ArrayList<>();
+		List<CheeseIndex> solutionPath = new ArrayList<>();
 		
 		frontier.add(starting);
 		while (frontier.size() > 0) {
-			CheeseIndex expand = getClosestCheese(frontier);
+			CheeseIndex expand = getClosest(frontier, goal);
 			frontier.remove(expand);
 			expanded.add(expand);
-			Index[] adjNodes = adjList.get(expand);
+			CheeseIndex[] adjNodes = adjList.get(expand);
 			
-			for (Index i : adjNodes) {
+			for (CheeseIndex i : adjNodes) {
 				if (expanded.contains(i)) {
 					i = new CheeseIndex(i.row, i.column, null);
 					expanded.add(i);
 				} else {
-					checkLandedOnCheese((CheeseIndex) i);
+					checkLandedOnCheese(i);
 				}
 				
-				copyCheeseList(expand, (CheeseIndex) i);
+				copyCheeseList(expand, i);
 				
 				i.prev = expand;
-				if (!cheesesLeft((CheeseIndex) i)) { // change method to find the goal 
+				if (!cheesesLeft(i)) { // change method to find the goal 
 					for (Index p = i; p != null; p = p.prev) {
-						solutionPath.add(new Index(p.row, p.column, null));	
+						solutionPath.add(new CheeseIndex(p.row, p.column, null));	
 					}
 					return solutionPath;
 				} else {
@@ -49,8 +49,7 @@ public class AstarCheese extends InformedSearch{
 	}
 
 	// f(n) = g(n) + h(n)
-	
-	public CheeseIndex getClosestCheese(List<CheeseIndex> frontier) {
+	public CheeseIndex getClosest(List<CheeseIndex> frontier, CheeseIndex goal) {
 		CheeseIndex minimumIndex = null;
 		int minimumDistance = Integer.MAX_VALUE;
 		// going through the frontier nodes
@@ -61,6 +60,7 @@ public class AstarCheese extends InformedSearch{
 				if (!(index.cheeses.contains(cheeseIndex))) {
 					int distanceFromCheeseToCurrentIndex = getManhattanDistance(cheeseIndex, index) + getPathLength(index);
 					if (distanceFromCheeseToCurrentIndex < minimumDistance) {
+						minimumDistance = distanceFromCheeseToCurrentIndex;
 						minimumIndex = index;
 					}
 				}
@@ -96,10 +96,16 @@ public class AstarCheese extends InformedSearch{
 			}
 		}
 	}
-
-	@Override
-	public Index getClosest(List<Index> frontier, Index goal) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private List<CheeseIndex> getCheeseFromMaze(char[][] maze) {
+		List<CheeseIndex> cheeses = new ArrayList<>();
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+				if (maze[i][j] == '.') {
+					cheeses.add(new CheeseIndex(i, j, null));
+				}
+			}
+		}
+		return cheeses;
 	}
 }
