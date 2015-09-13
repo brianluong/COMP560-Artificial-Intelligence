@@ -27,7 +27,7 @@ public class DFS extends Search<Index>{
 //			System.out.println("" + expand.row + ", " + expand.column);
 			
 			for (Index i : adjNodes) {
-				if (!expanded.contains(i)) {
+				if (!expanded.contains(i)  && !frontier.contains(i)) {
 					i.prev = expand;
 					if (isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {

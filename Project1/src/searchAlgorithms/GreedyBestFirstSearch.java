@@ -26,7 +26,7 @@ public class GreedyBestFirstSearch extends InformedSearch<Index> {
 			Index[] adjNodes = adjList.get(expand);
 			
 			for (Index i : adjNodes) {
-				if (!expanded.contains(i)) {
+				if (!expanded.contains(i)  && !frontier.contains(i)) {
 					i.prev = expand;
 					if (isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {

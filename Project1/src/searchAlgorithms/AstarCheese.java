@@ -68,17 +68,25 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		for (CheeseIndex index : frontier) {
 			
 			// going through the Global list of cheeses to find the list of cheeses NOT eaten yet
-			for (CheeseIndex cheeseIndex : this.cheeses) {
-				if (!(index.cheeses.contains(cheeseIndex))) {
-					int distanceFromCheeseToCurrentIndex = getManhattanDistance(cheeseIndex, index) + getPathLength(index);
-					if (distanceFromCheeseToCurrentIndex < minimumDistance) {
-						minimumDistance = distanceFromCheeseToCurrentIndex;
-						minimumIndex = index;
-					}
-				}
+			int distanceFromCheeseToCurrentIndex = getAggregateManhattanDistance(index) + (getPathLength(index) * 3) - (index.cheeses.size() * 5);
+			if (distanceFromCheeseToCurrentIndex < minimumDistance) {
+				minimumDistance = distanceFromCheeseToCurrentIndex;
+				minimumIndex = index;
+					
 			}
 		}
 		return minimumIndex;
+	}
+	
+	private int getAggregateManhattanDistance(CheeseIndex origin) {
+		int sum = 0;
+		for (CheeseIndex cheeseIndex : this.cheeses) {
+			if (!(origin.cheeses.contains(cheeseIndex))) {
+				sum+= getManhattanDistance(origin, cheeseIndex);
+			}
+			
+		}
+		return sum;
 	}
 	
 	private boolean cheesesLeft(CheeseIndex i) {
@@ -89,7 +97,6 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		for (CheeseIndex cheeseIndex : fromIndex.cheeses) {
 			if (!toIndex.cheeses.contains(cheeseIndex)) {
 				toIndex.cheeses.add(cheeseIndex);
-				break;
 			}
 		}
 	}
