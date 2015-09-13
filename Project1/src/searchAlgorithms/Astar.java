@@ -54,4 +54,17 @@ public class Astar extends InformedSearch {
 		}
 		return closestIndex;
 	}
+	
+	public Index getCheese(List<Index> frontier, Index goal) {
+		int cheapest = Integer.MAX_VALUE;
+		Index closestIndex = null;
+		for (Index i : frontier) {
+			int currentCheapest = getManhattanDistance(i, goal) + getPathLength(i);
+			if (currentCheapest < cheapest) {
+				cheapest = currentCheapest;
+				closestIndex = i;
+			}
+		}
+		return closestIndex;
+	}
 }

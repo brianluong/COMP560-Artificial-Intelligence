@@ -37,7 +37,7 @@ public class BFS extends Search{
 						return solutionPath;
 					} else {
 						frontier.add(i);
-					}	
+					}
 				}
 			}
 		}
