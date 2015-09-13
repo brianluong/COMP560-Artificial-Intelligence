@@ -20,6 +20,7 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			CheeseIndex expand = getClosest(frontier, goal);
+			System.out.println("" + expand.column + ", " + expand.row);
 			checkLandedOnCheese(expand);
 			
 			if (!cheesesLeft(expand)) { // change method to find the goal 
@@ -33,16 +34,32 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 			CheeseIndex[] adjNodes = adjList.get(expand);
 			
 			for (CheeseIndex i : adjNodes) {
-				CheeseIndex newIndex = new CheeseIndex(i.row, i.column, null);
-				expanded.add(newIndex);
+				if (!expanded.contains(i)) {
+					i.prev = expand;
+					frontier.add(i);
+				}
+			}
+			
+			if (expand.prev!=null) {
+				CheeseIndex newIndex = new CheeseIndex(expand.prev.row, expand.prev.column, null);
 				copyCheeseList(expand, newIndex);
 				newIndex.prev = expand;
-				frontier.add(newIndex);
 			}
+			
 		}
 		return solutionPath;
 	}
 
+	public int getNearest(CheeseIndex index) {
+		int minDistance = Integer.MAX_VALUE;
+		for (CheeseIndex cheeseIndex : this.cheeses) {
+			if (!(index.cheeses.contains(cheeseIndex))){
+				minDistance = getManhattanDistance(cheeseIndex, index);
+			}
+		}
+		return minDistance;
+	}
+	
 	// f(n) = g(n) + h(n)
 	public CheeseIndex getClosest(List<CheeseIndex> frontier, CheeseIndex goal) {
 		CheeseIndex minimumIndex = null;
@@ -53,7 +70,7 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 			// going through the Global list of cheeses to find the list of cheeses NOT eaten yet
 			for (CheeseIndex cheeseIndex : this.cheeses) {
 				if (!(index.cheeses.contains(cheeseIndex))) {
-					int distanceFromCheeseToCurrentIndex = getManhattanDistance(cheeseIndex, index) + getPathLength(index) - (index.cheeses.size() * 3);
+					int distanceFromCheeseToCurrentIndex = getManhattanDistance(cheeseIndex, index) + getPathLength(index);
 					if (distanceFromCheeseToCurrentIndex < minimumDistance) {
 						minimumDistance = distanceFromCheeseToCurrentIndex;
 						minimumIndex = index;

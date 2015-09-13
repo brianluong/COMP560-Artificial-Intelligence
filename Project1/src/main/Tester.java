@@ -9,8 +9,8 @@ public class Tester {
 
 	public static void main(String[] args) throws Exception {
 		
-		String[] mazeFilePaths = {"../mazes/smallMaze.txt", "../mazes/mediumMaze.txt", "../mazes/bigMaze.txt"};
-		String[] mazeCheeseFilePaths = {"../mazes/smallCheese.txt", "../mazes/mediumCheese.txt", "../mazes/bigCheese.txt", "../mazes/trickyCheese.txt"};
+//		String[] mazeFilePaths = {"../mazes/smallMaze.txt", "../mazes/mediumMaze.txt", "../mazes/bigMaze.txt"};
+//		String[] mazeCheeseFilePaths = {"../mazes/smallCheese.txt", "../mazes/mediumCheese.txt", "../mazes/bigCheese.txt", "../mazes/trickyCheese.txt"};
 		
 		// PART 1
 		
@@ -48,10 +48,11 @@ public class Tester {
 		
 		// PART 3
 		
-		for (String mazeCheeseFilePath : mazeCheeseFilePaths) {
+//		for (String mazeCheeseFilePath : mazeCheeseFilePaths) {
 			
-			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeCheeseFilePath);
-			
+//			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeCheeseFilePath);
+			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/superSmallCheese.txt");
+		
 			System.out.println("Small Cheese");
 			AstarCheese aStarCheese = new AstarCheese(maze);
 			aStarCheese.search();
@@ -62,7 +63,7 @@ public class Tester {
 			
 			System.out.println("Tricky Cheese");
 			
-		}
+//		}
 
 		//Stephen's part: Testing maze difficulty for A-star and GBFS
 		
