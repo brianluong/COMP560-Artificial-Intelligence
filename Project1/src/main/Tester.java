@@ -48,22 +48,26 @@ public class Tester {
 		
 		// PART 3
 		
-//		for (String mazeCheeseFilePath : mazeCheeseFilePaths) {
-			
-//			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeCheeseFilePath);
-			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/smallCheese.txt");
 		
+			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/smallCheese.txt");
+			
 			System.out.println("Small Cheese");
 			AstarCheese aStarCheese = new AstarCheese(maze);
-			aStarCheese.search();
-			
-			System.out.println("Medium Cheese");
-			
-			System.out.println("Big Cheese");
+			List<CheeseIndex> solutionCheeseIndexs = aStarCheese.search();
+			SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
 			
 			System.out.println("Tricky Cheese");
+			maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/trickyCheese.txt");
+			aStarCheese = new AstarCheese(maze);
+			solutionCheeseIndexs = aStarCheese.search();
+			SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
 			
-//		}
+			
+//			System.out.println("Medium Cheese");
+//			
+//			System.out.println("Big Cheese");
+//			
+			
 
 		//Stephen's part: Testing maze difficulty for A-star and GBFS
 		
