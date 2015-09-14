@@ -9,67 +9,41 @@ public class Tester {
 
 	public static void main(String[] args) throws Exception {
 		
-//		String[] mazeFilePaths = {"../mazes/smallMaze.txt", "../mazes/mediumMaze.txt", "../mazes/bigMaze.txt"};
-//		String[] mazeCheeseFilePaths = {"../mazes/smallCheese.txt", "../mazes/mediumCheese.txt", "../mazes/bigCheese.txt", "../mazes/trickyCheese.txt"};
+  		String[] mazeFilePaths = {"../mazes/smallMaze.txt", "../mazes/mediumMaze.txt", "../mazes/bigMaze.txt"};
+		String[] mazeCheeseFilePaths = {"../mazes/smallCheese.txt", "../mazes/mediumCheese.txt", "../mazes/bigCheese.txt", "../mazes/trickyCheese.txt"};
 		
 		// PART 1
 		
 		List<Index> solution = null;
 		
-//		for (String mazeFilePath : mazeFilePaths) {
-//			
-//			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeFilePath);
-//			
-//			System.out.println("BFS");
-//			Search bfs = new BFS(maze);
-//			solution = bfs.search();
-//			SearchIOHelper.printMazeWithSolution(maze, solution, bfs.getExpandedSet());
-//
-//			System.out.println("DFS");
-//			Search dfs = new DFS(maze);
-//			solution = dfs.search();
-//			SearchIOHelper.printMazeWithSolution(maze, solution, dfs.getExpandedSet());
-//
-//			System.out.println("GREEDY BEST FIRST");
-//			Search greedyBest = new GreedyBestFirstSearch(maze);
-//			solution = greedyBest.search();
-//			SearchIOHelper.printMazeWithSolution(maze, solution, greedyBest.getExpandedSet());
-//			
-//			System.out.println("A STAR");
-//			Search aStar = new Astar(maze);
-//			solution = aStar.search();
-//			SearchIOHelper.printMazeWithSolution(maze, solution, aStar.getExpandedSet());
-//			
-//			System.out.println();
-//		}
-		
-		// PART 2
-		//Ben's part
-		
-		// PART 3
-		
-		
-			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/smallCheese.txt");
+		for (String mazeFilePath : mazeFilePaths) {
 			
-			System.out.println("Small Cheese");
-			AstarCheese aStarCheese = new AstarCheese(maze);
-			List<CheeseIndex> solutionCheeseIndexs = aStarCheese.search();
-			SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
+			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeFilePath);
 			
-			System.out.println("Tricky Cheese");
-			maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/trickyCheese.txt");
-			aStarCheese = new AstarCheese(maze);
-			solutionCheeseIndexs = aStarCheese.search();
-			SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
-			
-			
-//			System.out.println("Medium Cheese");
-//			
-//			System.out.println("Big Cheese");
-//			
-			
+			System.out.println("BFS");
+			Search bfs = new BFS(maze);
+			solution = bfs.search();
+			SearchIOHelper.printMazeWithSolution(maze, solution, bfs.getExpandedSet());
 
-		//Stephen's part: Testing maze difficulty for A-star and GBFS
+			System.out.println("DFS");
+			Search dfs = new DFS(maze);
+			solution = dfs.search();
+			SearchIOHelper.printMazeWithSolution(maze, solution, dfs.getExpandedSet());
+
+			System.out.println("GREEDY BEST FIRST");
+			Search greedyBest = new GreedyBestFirstSearch(maze);
+			solution = greedyBest.search();
+			SearchIOHelper.printMazeWithSolution(maze, solution, greedyBest.getExpandedSet());
+			
+			System.out.println("A STAR");
+			Search aStar = new Astar(maze);
+			solution = aStar.search();
+			SearchIOHelper.printMazeWithSolution(maze, solution, aStar.getExpandedSet());
+			
+			System.out.println();
+		}	
+			
+		// Testing maze difficulty for A-star and GBFS
 		
 		char[][] aStarHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/aStarHard.txt");
 		char[][] gbfsHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/GBFSHard.txt");
@@ -117,6 +91,28 @@ public class Tester {
 		solution = test.search();
 		SearchIOHelper.printMazeWithSolution(testMaze, solution, test.getExpandedSet());
 		long timeTest = System.currentTimeMillis() - startTest;
-		System.out.println("Took " + timeTest / 1000.0 + " sec");
+		System.out.println("Took " + timeTest / 1000.0 + " sec\n");
+		
+		// Generating cheese solutions
+		
+		
+		char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/smallCheese.txt");
+					
+		System.out.println("Small Cheese");
+		AstarCheese aStarCheese = new AstarCheese(maze);
+		long scStart = System.currentTimeMillis();
+		List<CheeseIndex> solutionCheeseIndexs = aStarCheese.search();
+		SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
+		long scTime = System.currentTimeMillis() - scStart;
+		System.out.println("Took " + scTime / 1000.0 + " sec\n");
+					
+		System.out.println("Tricky Cheese");
+		maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/trickyCheese.txt");
+		aStarCheese = new AstarCheese(maze);
+		long trickyStart = System.currentTimeMillis();
+		solutionCheeseIndexs = aStarCheese.search();
+		SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
+		long trickyTime = System.currentTimeMillis() - trickyStart;
+		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
 	}
 }
