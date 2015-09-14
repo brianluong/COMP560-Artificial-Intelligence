@@ -26,12 +26,12 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 			CheeseIndex expand = getClosest(frontier, goal);
 			checkLandedOnCheese(expand);
 			
-//			System.out.println("node expanding is " + expand.row + " " + expand.column);
+			System.out.println("node expanding is " + expand.column + " " + expand.row);
 //			for (Index cheeseIndex : expand.cheeses) {
 //				System.out.println("Cheeses visited already " + cheeseIndex.row + " " + cheeseIndex.column); 
 //			}
 //			System.out.println();
-//			
+			
 			if (!cheesesLeft(expand)) {
 				for (Index p = expand; p != null; p = p.prev) {
 					solutionPath.add(new CheeseIndex(p.row, p.column, null));	
@@ -49,6 +49,10 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 				if (!expanded.contains(newIndex) && !frontier.contains(newIndex)) {
 					expanded.add(newIndex);
 					newIndex.prev = expand;
+
+//					if (getNearest(expand) - getNearest(newIndex) >= 0) {
+//						frontier.add(newIndex);
+//					}	
 					frontier.add(newIndex);
 					
 				}
@@ -59,20 +63,20 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		return solutionPath;
 	}
 
-//	public int getNearest(CheeseIndex index) {
-//		int curDistance;
-//		int minDistance = Integer.MAX_VALUE;
-//		for (Index cheeseIndex : this.cheeses) {
-//			if (!(index.cheeses.contains(cheeseIndex))){
-//				CheeseIndex tempIndex = new CheeseIndex(cheeseIndex.row, cheeseIndex.column, null);
-//				curDistance = getManhattanDistance(tempIndex, index);
-//				if (curDistance < minDistance) {
-//					minDistance = curDistance;
-//				}
-//			}
-//		}
-//		return minDistance;
-//	}
+	public int getNearest(CheeseIndex index) {
+		int curDistance;
+		int minDistance = Integer.MAX_VALUE;
+		for (Index cheeseIndex : this.cheeses) {
+			if (!(index.cheeses.contains(cheeseIndex))){
+				CheeseIndex tempIndex = new CheeseIndex(cheeseIndex.row, cheeseIndex.column, null);
+				curDistance = getManhattanDistance(tempIndex, index);
+				if (curDistance < minDistance) {
+					minDistance = curDistance;
+				}
+			}
+		}
+		return minDistance;
+	}
 	
 	// f(n) = g(n) + h(n)
 	public CheeseIndex getClosest(List<CheeseIndex> frontier, CheeseIndex goal) {
@@ -81,12 +85,15 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		// going through the frontier nodes
 		for (CheeseIndex index : frontier) {
 		
-			int distanceFromCheeseToCurrentIndex = getAggregateManhattanDistance(index) - (getPathLength(index) * 3) - (index.cheeses.size() * 5);
+//			int distanceFromCheeseToCurrentIndex = (int) (Math.pow(getClosestDistToCheese(index), 1));
+			int distanceFromCheeseToCurrentIndex = getClosestDistToCheese(index) + getPathLength(index);
 			if (distanceFromCheeseToCurrentIndex < minimumDistance) {
+				
 				minimumDistance = distanceFromCheeseToCurrentIndex;
 				minimumIndex = index;
 			}
 		}
+//		System.out.println("The lowest hueirist c value is " + minimumDistance);
 		return minimumIndex;
 	}
 	
@@ -96,10 +103,24 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		for (Index cheeseIndex : this.cheeses) {
 			if (!(origin.cheeses.contains(cheeseIndex))) {
 				CheeseIndex tempIndex = new CheeseIndex(cheeseIndex.row, cheeseIndex.column, null);
-				sum+= getManhattanDistance(origin, tempIndex);
+				sum+= Math.pow(getManhattanDistance(origin, tempIndex), 1);
+			} else {
+				sum += 1;
 			}
 		}
 		return sum;
+	}
+	
+	private int getClosestDistToCheese(CheeseIndex index) {
+		int dist = Integer.MAX_VALUE;
+		for (Index index2 : this.cheeses) {
+			if (!index.cheeses.contains(index2)) {
+				CheeseIndex tempIndex = new CheeseIndex(index2.row, index2.column, null);
+				int d = getManhattanDistance(tempIndex, index);
+				dist = d < dist ? d : dist;
+			}
+		}
+		return dist;
 	}
 	
 //	private int getAggregatePathLengthToCheeses(CheeseIndex origin) throws InstantiationException, IllegalAccessException {
