@@ -1,11 +1,15 @@
 package searchAlgorithms;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 public class AstarCheese extends InformedSearch<CheeseIndex>{
 
 	List<CheeseIndex> cheeses;
+	
 	public AstarCheese(char[][] maze) throws InstantiationException, IllegalAccessException {
 		super(maze, CheeseIndex.class);
 		goal = null; // goal is to eat all cheeses
@@ -55,18 +59,17 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		int minimumDistance = Integer.MAX_VALUE;
 		// going through the frontier nodes
 		for (CheeseIndex index : frontier) {
-			
-			// going through the Global list of cheeses to find the list of cheeses NOT eaten yet
-			int distanceFromCheeseToCurrentIndex = getAggregateManhattanDistance(index) + (getPathLength(index) * 3) - (index.cheeses.size() * 5);
+		
+			int distanceFromCheeseToCurrentIndex = getAggregateManhattanDistance(index) - (getPathLength(index) * 300) - (index.cheeses.size() * 5000);
 			if (distanceFromCheeseToCurrentIndex < minimumDistance) {
 				minimumDistance = distanceFromCheeseToCurrentIndex;
 				minimumIndex = index;
-					
 			}
 		}
 		return minimumIndex;
 	}
 	
+	// sum of distances of all unvisited cheeses
 	private int getAggregateManhattanDistance(CheeseIndex origin) {
 		int sum = 0;
 		for (CheeseIndex cheeseIndex : this.cheeses) {
@@ -77,6 +80,17 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		}
 		return sum;
 	}
+	
+//	private int getAggregatePathLengthToCheeses(CheeseIndex origin) throws InstantiationException, IllegalAccessException {
+//		int sum = 0;
+//		for (CheeseIndex cheeseIndex : this.cheeses) {
+//			if (!(origin.cheeses.contains(cheeseIndex))) {
+//				BFS bfs = new BFS(maze);
+//				sum+= getManhattanDistance(origin, cheeseIndex);
+//			}
+//			
+//		}
+//	}
 	
 	private boolean cheesesLeft(CheeseIndex i) {
 		return i.cheeses.size() != this.cheeses.size();
