@@ -49,6 +49,12 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 				if (!expanded.contains(newIndex) && !frontier.contains(newIndex)) {
 					expanded.add(newIndex);
 					newIndex.prev = expand;
+//					for (CheeseIndex node : frontier) {
+//					
+//						if (index.equalsCheese(node)) {
+//							frontier.remove(node);
+//						}
+//					}	
 //					if (getNearest(expand) - getNearest(newIndex) >= 0) {
 //						frontier.add(newIndex);
 //					}	
