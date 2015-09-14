@@ -20,7 +20,7 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			CheeseIndex expand = getClosest(frontier, goal);
-			System.out.println("" + expand.column + ", " + expand.row);
+//			System.out.println("" + expand.column + ", " + expand.row);
 			checkLandedOnCheese(expand);
 			
 			if (!cheesesLeft(expand)) { // change method to find the goal 
@@ -35,8 +35,12 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 			
 			for (CheeseIndex i : adjNodes) {
 				if (!expanded.contains(i)) {
-					i.prev = expand;
-					frontier.add(i);
+					CheeseIndex newIndex = new CheeseIndex(i.row, i.column, null);
+					copyCheeseList(expand, newIndex);
+					newIndex.prev = expand;
+					if (getNearest(expand) - getNearest(newIndex) >= 0) {
+						frontier.add(newIndex);
+					}
 				}
 			}
 			
@@ -51,10 +55,14 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 	}
 
 	public int getNearest(CheeseIndex index) {
+		int curDistance;
 		int minDistance = Integer.MAX_VALUE;
 		for (CheeseIndex cheeseIndex : this.cheeses) {
 			if (!(index.cheeses.contains(cheeseIndex))){
-				minDistance = getManhattanDistance(cheeseIndex, index);
+				curDistance = getManhattanDistance(cheeseIndex, index);
+				if (curDistance < minDistance) {
+					minDistance = curDistance;
+				}
 			}
 		}
 		return minDistance;
@@ -67,12 +75,12 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		// going through the frontier nodes
 		for (CheeseIndex index : frontier) {
 			
-			// going through the Global list of cheeses to find the list of cheeses NOT eaten yet
-			int distanceFromCheeseToCurrentIndex = getAggregateManhattanDistance(index) + (getPathLength(index) * 3) - (index.cheeses.size() * 5);
-			if (distanceFromCheeseToCurrentIndex < minimumDistance) {
-				minimumDistance = distanceFromCheeseToCurrentIndex;
-				minimumIndex = index;
-					
+			for (CheeseIndex cheeseIndex : this.cheeses) {
+				int distanceFromCheeseToCurrentIndex = getManhattanDistance(index, cheeseIndex) + getPathLength(index);
+				if (distanceFromCheeseToCurrentIndex < minimumDistance) {
+					minimumDistance = distanceFromCheeseToCurrentIndex;
+					minimumIndex = index;
+				}
 			}
 		}
 		return minimumIndex;
