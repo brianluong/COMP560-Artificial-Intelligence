@@ -1,7 +1,6 @@
 package searchAlgorithms;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CheeseIndex extends Index {
@@ -15,19 +14,10 @@ public class CheeseIndex extends Index {
 	public CheeseIndex(int r, int c, Index p) {
 		super(r, c, p);
 		cheeses = new ArrayList<>();
+		// TODO Auto-generated constructor stub
 	}
 	
 	public void addCheese(Index index) {
 		this.cheeses.add((CheeseIndex) index);
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if (this.row == ((CheeseIndex) o).row && this.column == ((CheeseIndex) o).column) {
-			if (this.cheeses.size() == ((CheeseIndex) o).cheeses.size()) {
-			}
-			return true;
-		} 
-		return false;
 	}
 }
