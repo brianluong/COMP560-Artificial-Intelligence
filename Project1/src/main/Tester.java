@@ -49,26 +49,50 @@ public class Tester {
 		
 		char[][] aStarHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/aStarHard.txt");
 		char[][] gbfsHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/GBFSHard.txt");
+		//test maze
+		char[][] testMaze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/testMaze.txt");
 		
 		System.out.println("TESTING MAZE DIFFICULTY...\n");
 		System.out.println("A STAR DIFFICULT");
 		Search aStar = new Astar(aStarHard);
+		long startAHard = System.currentTimeMillis();
 		solution = aStar.search();
 		SearchIOHelper.printMazeWithSolution(aStarHard, solution, aStar.getExpandedSet());
+		long timeAHard = System.currentTimeMillis() - startAHard;
+		System.out.println("Took " + timeAHard / 1000.0 + " secs");
 		
 		System.out.println("\nCOMPARING WITH GBFS (NOT AS HARD)");
 		Search gbfs_aStarHard = new GreedyBestFirstSearch(aStarHard);
+		long startAHard2 = System.currentTimeMillis();
 		solution = gbfs_aStarHard.search();
 		SearchIOHelper.printMazeWithSolution(aStarHard, solution, gbfs_aStarHard.getExpandedSet());
+		long timeAHard2 = System.currentTimeMillis() - startAHard2;
+		System.out.println("Took " + timeAHard2 / 1000.0 + " secs");
 		
 		System.out.println("\nGBFS DIFFICULT");
 		Search gbfs = new GreedyBestFirstSearch(gbfsHard);
+		long startGBFSHard = System.currentTimeMillis();
 		solution = gbfs.search();
 		SearchIOHelper.printMazeWithSolution(gbfsHard, solution, gbfs.getExpandedSet());
+		long timeGBFSHard = System.currentTimeMillis() - startGBFSHard;
+		System.out.println("Took " + timeGBFSHard / 1000.0 + " secs");
 		
 		System.out.println("\nCOMPARING WITH A STAR (NOT AS HARD)");
 		Search aStar_gbfsHard = new Astar(gbfsHard);
+		long startGBFSHard2 = System.currentTimeMillis();
 		solution = aStar_gbfsHard.search();
 		SearchIOHelper.printMazeWithSolution(gbfsHard, solution, aStar_gbfsHard.getExpandedSet());
+		long timeGBFSHard2 = System.currentTimeMillis() - startGBFSHard2;
+		System.out.println("Took " + timeGBFSHard2 / 1000.0 + " secs");
+		
+		// test maze
+		System.out.println("\nTESTING SPARSE MAZE...");
+		System.out.println("A STAR");
+		Search test = new Astar(testMaze);
+		long startTest = System.currentTimeMillis();
+		solution = test.search();
+		SearchIOHelper.printMazeWithSolution(testMaze, solution, test.getExpandedSet());
+		long timeTest = System.currentTimeMillis() - startTest;
+		System.out.println("Took " + timeTest / 1000.0 + " sec");
 	}
 }
