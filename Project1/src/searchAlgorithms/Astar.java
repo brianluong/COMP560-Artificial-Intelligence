@@ -20,7 +20,7 @@ public class Astar extends InformedSearch<Index> {
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			Index expand = getClosest(frontier, goal);
-			System.out.println("Expanded is " + expand.row  + " " + expand.column);
+			//System.out.println("Expanded is " + expand.row  + " " + expand.column);
 			frontier.remove(expand);
 			expanded.add(expand);
 			Index[] adjNodes = adjList.get(expand);
