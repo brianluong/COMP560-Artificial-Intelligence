@@ -87,7 +87,7 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		// going through the frontier nodes
 		for (CheeseIndex index : frontier) {
 		
-			int distanceFromCheeseToCurrentIndex = (int) (Math.pow(getClosestDistToCheese(index), 1));
+			int distanceFromCheeseToCurrentIndex = getAggregateManhattanDistance(index) + (getPathLength(index));
 			if (distanceFromCheeseToCurrentIndex < minimumDistance) {
 				
 				minimumDistance = distanceFromCheeseToCurrentIndex;
@@ -105,8 +105,6 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 			if (!(origin.cheeses.contains(cheeseIndex))) {
 				CheeseIndex tempIndex = new CheeseIndex(cheeseIndex.row, cheeseIndex.column, null);
 				sum+= Math.pow(getManhattanDistance(origin, tempIndex), 1);
-			} else {
-				sum += 1;
 			}
 		}
 		return sum;
