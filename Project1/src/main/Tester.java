@@ -2,13 +2,15 @@ package main;
 
 import java.util.List;
 
+
 import searchAlgorithms.*;
 
 public class Tester {
 
 	public static void main(String[] args) throws Exception {
 		
-		String[] mazeFilePaths = {"../mazes/smallMaze.txt", "../mazes/mediumMaze.txt", "../mazes/bigMaze.txt"};
+//		String[] mazeFilePaths = {"../mazes/smallMaze.txt", "../mazes/mediumMaze.txt", "../mazes/bigMaze.txt"};
+//		String[] mazeCheeseFilePaths = {"../mazes/smallCheese.txt", "../mazes/mediumCheese.txt", "../mazes/bigCheese.txt", "../mazes/trickyCheese.txt"};
 		
 		// PART 1
 		
@@ -44,44 +46,40 @@ public class Tester {
 		// PART 2
 		//Ben's part
 		
-		char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/smallCheese.txt");
-		
-		Search aStar = new AstarCheese(maze);
-		List<CheeseIndex> solutionCheese = aStar.search();
-		SearchIOHelper.printMazeWithSolution2(maze, solutionCheese, aStar.getExpandedSet());
-//		
-//		maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/trickyCheese.txt");
-//		
-//		aStarCheese = new AstarCheese(maze);
-//		solutionCheese = aStarCheese.search();
-//		SearchIOHelper.printMazeWithSolution2(maze, solutionCheese, aStarCheese.getExpandedSet());
-//		
-				
 		// PART 3
+		
+//		for (String mazeCheeseFilePath : mazeCheeseFilePaths) {
+			
+//			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeCheeseFilePath);
+			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/smallCheese.txt");
+		
+			System.out.println("Small Cheese");
+			AstarCheese aStarCheese = new AstarCheese(maze);
+			aStarCheese.search();
+			
+			System.out.println("Medium Cheese");
+			
+			System.out.println("Big Cheese");
+			
+			System.out.println("Tricky Cheese");
+			
+//		}
+
 		//Stephen's part: Testing maze difficulty for A-star and GBFS
-//		
+		
 //		char[][] aStarHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/aStarHard.txt");
-//		char[][] gbfsHard = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/GBFSHard.txt");
-//		
+		//char[][] GBFS = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/GBFSHard.txt");
+		
 //		System.out.println("TESTING MAZE DIFFICULTY...\n");
 //		System.out.println("A STAR DIFFICULT");
 //		Search aStar = new Astar(aStarHard);
 //		solution = aStar.search();
 //		SearchIOHelper.printMazeWithSolution(aStarHard, solution, aStar.getExpandedSet());
 //		
-//		System.out.println("\nCOMPARING WITH GBFS (NOT AS HARD)");
+//		System.out.println("COMPARING WITH GBFS");
 //		Search gbfs_aStarHard = new GreedyBestFirstSearch(aStarHard);
 //		solution = gbfs_aStarHard.search();
 //		SearchIOHelper.printMazeWithSolution(aStarHard, solution, gbfs_aStarHard.getExpandedSet());
-//		
-//		System.out.println("\nGBFS DIFFICULT");
-//		Search gbfs = new GreedyBestFirstSearch(gbfsHard);
-//		solution = gbfs.search();
-//		SearchIOHelper.printMazeWithSolution(gbfsHard, solution, gbfs.getExpandedSet());
-//		
-//		System.out.println("\nCOMPARING WITH A STAR (NOT AS HARD)");
-//		Search aStar_gbfsHard = new Astar(gbfsHard);
-//		solution = aStar_gbfsHard.search();
-//		SearchIOHelper.printMazeWithSolution(gbfsHard, solution, aStar_gbfsHard.getExpandedSet());
+		
 	}
 }
