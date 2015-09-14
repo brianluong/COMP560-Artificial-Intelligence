@@ -67,6 +67,7 @@ public abstract class Search<T extends Index>{
 		for (Index p = index; p != null; p = p.prev) {
 			length++;
 		}
+		length--;
 		return length;
 	}
 	

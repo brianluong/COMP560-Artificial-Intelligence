@@ -51,7 +51,7 @@ public class Tester {
 //		for (String mazeCheeseFilePath : mazeCheeseFilePaths) {
 			
 //			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput(mazeCheeseFilePath);
-			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/smallCheese.txt");
+			char[][] maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/superSmallCheese.txt");
 		
 			System.out.println("Small Cheese");
 			AstarCheese aStarCheese = new AstarCheese(maze);
