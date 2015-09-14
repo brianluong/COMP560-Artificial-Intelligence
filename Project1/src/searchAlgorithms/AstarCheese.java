@@ -20,13 +20,8 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		frontier.add(starting);
 		while (frontier.size() > 0) {
 			CheeseIndex expand = getClosest(frontier, goal);
+//			System.out.println("" + expand.column + ", " + expand.row);
 			checkLandedOnCheese(expand);
-			
-			System.out.println("node expanding is " + expand.row + " " + expand.column);
-			for (CheeseIndex cheeseIndex : expand.cheeses) {
-				System.out.println("Cheeses visited already " + cheeseIndex.row + " " + cheeseIndex.column); 
-			}
-			System.out.println();
 			
 			if (!cheesesLeft(expand)) { // change method to find the goal 
 				for (Index p = expand; p != null; p = p.prev) {
@@ -39,16 +34,40 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 			CheeseIndex[] adjNodes = adjList.get(expand);
 			
 			for (CheeseIndex i : adjNodes) {
-				CheeseIndex newIndex = new CheeseIndex(i.row, i.column, null);
-				expanded.add(newIndex);
+				if (!expanded.contains(i)) {
+					CheeseIndex newIndex = new CheeseIndex(i.row, i.column, null);
+					copyCheeseList(expand, newIndex);
+					newIndex.prev = expand;
+					if (getNearest(expand) - getNearest(newIndex) >= 0) {
+						frontier.add(newIndex);
+					}
+				}
+			}
+			
+			if (expand.prev!=null) {
+				CheeseIndex newIndex = new CheeseIndex(expand.prev.row, expand.prev.column, null);
 				copyCheeseList(expand, newIndex);
 				newIndex.prev = expand;
-				frontier.add(newIndex);
 			}
+			
 		}
 		return solutionPath;
 	}
 
+	public int getNearest(CheeseIndex index) {
+		int curDistance;
+		int minDistance = Integer.MAX_VALUE;
+		for (CheeseIndex cheeseIndex : this.cheeses) {
+			if (!(index.cheeses.contains(cheeseIndex))){
+				curDistance = getManhattanDistance(cheeseIndex, index);
+				if (curDistance < minDistance) {
+					minDistance = curDistance;
+				}
+			}
+		}
+		return minDistance;
+	}
+	
 	// f(n) = g(n) + h(n)
 	public CheeseIndex getClosest(List<CheeseIndex> frontier, CheeseIndex goal) {
 		CheeseIndex minimumIndex = null;
@@ -56,12 +75,12 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 		// going through the frontier nodes
 		for (CheeseIndex index : frontier) {
 			
-			// going through the Global list of cheeses to find the list of cheeses NOT eaten yet
-			int distanceFromCheeseToCurrentIndex = getAggregateManhattanDistance(index) + (getPathLength(index) * 3) - (index.cheeses.size() * 5);
-			if (distanceFromCheeseToCurrentIndex < minimumDistance) {
-				minimumDistance = distanceFromCheeseToCurrentIndex;
-				minimumIndex = index;
-					
+			for (CheeseIndex cheeseIndex : this.cheeses) {
+				int distanceFromCheeseToCurrentIndex = getManhattanDistance(index, cheeseIndex) + getPathLength(index);
+				if (distanceFromCheeseToCurrentIndex < minimumDistance) {
+					minimumDistance = distanceFromCheeseToCurrentIndex;
+					minimumIndex = index;
+				}
 			}
 		}
 		return minimumIndex;
