@@ -31,12 +31,6 @@ public class AstarCheese extends InformedSearch<CheeseIndex>{
 			// Check if expanded state reached a cheese
 			checkLandedOnCheese(expand);
 			
-//			System.out.println("node expanding is " + expand.row + " " + expand.column);
-//			for (Index cheeseIndex : expand.cheeses) {
-//				System.out.println("Cheeses visited already " + cheeseIndex.row + " " + cheeseIndex.column); 
-//			}
-//			System.out.println();
-			
 			// Check if current state has eaten all cheese
 			if (!cheesesLeft(expand)) {
 				for (Index p = expand; p != null; p = p.prev) {
