@@ -16,7 +16,8 @@ public abstract class Search<T extends Index>{
 	
 	protected char[][] maze;
 	protected Map<T, T[]> adjList;
-	protected Set<T> expanded;
+	// Set of expanded nodes (visited states) 
+	protected Set<T> expanded; 
 	
 	protected Class<T> classOfT;
 	
@@ -27,6 +28,7 @@ public abstract class Search<T extends Index>{
 		expanded = new HashSet<T>();
 	}
 	
+	// Check if reached goal state
 	public boolean isGoal(Index ind, char[][] maze) {
 		if (maze[ind.row][ind.column] == GOAL) {
 			return true;

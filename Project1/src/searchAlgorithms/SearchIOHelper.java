@@ -55,7 +55,7 @@ public class SearchIOHelper {
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[0].length; j++) {
 				Index ind = new Index(i, j, null);
-				if (solutionPath.contains(ind) && maze[i][j] != SearchUtils.START && maze[i][j] != SearchUtils.GOAL) {
+				if (solutionPath.contains(ind) && maze[i][j] != Search.START && maze[i][j] != Search.GOAL) {
 					System.out.print('.');
 				} else {
 					System.out.print(maze[i][j]);	
@@ -71,7 +71,7 @@ public class SearchIOHelper {
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[0].length; j++) {
 				Index ind = new Index(i, j, null);
-				if (solutionPath.contains(ind) && maze[i][j] != SearchUtils.START && maze[i][j] != SearchUtils.GOAL) {
+				if (solutionPath.contains(ind) && maze[i][j] != Search.START && maze[i][j] != Search.GOAL) {
 					System.out.print('x');
 				} else {
 					System.out.print(maze[i][j]);	

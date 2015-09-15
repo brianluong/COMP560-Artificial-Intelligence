@@ -1,10 +1,7 @@
 package searchAlgorithms;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class Astar extends InformedSearch<Index> {
 
@@ -17,18 +14,28 @@ public class Astar extends InformedSearch<Index> {
 		List<Index> frontier = new ArrayList<>();
 		List<Index> solutionPath = new ArrayList<>();
 		
+		// A state in this algorithm is defined as 1. the location (row i, column j)
+
+		// Add initial state to the frontier 
 		frontier.add(starting);
+		
 		while (frontier.size() > 0) {
+			
+			// Removes the state that is has the lowest value of the evaluation function f(n)
 			Index expand = getClosest(frontier, goal);
 			//System.out.println("Expanded is " + expand.row  + " " + expand.column);
+			
 			frontier.remove(expand);
 			expanded.add(expand);
 			Index[] adjNodes = adjList.get(expand);
 			
+			// Add all possible successor states to the frontier 
+			// that are not currently on frontier or already visited
 			for (Index i : adjNodes) {
-				// need to check for frontier
 				if (!expanded.contains(i) && !frontier.contains(i)) { 
 					i.prev = expand;
+					
+					// Check if reached goal state. If not, add on the frontier
 					if (isGoal(i, maze)) {
 						for (Index p = i; p != null; p = p.prev) {
 							solutionPath.add(new Index(p.row, p.column, null));	
@@ -45,19 +52,6 @@ public class Astar extends InformedSearch<Index> {
 	
 	// f(n) = g(n) + h(n)
 	public Index getClosest(List<Index> frontier, Index goal) {
-		int cheapest = Integer.MAX_VALUE;
-		Index closestIndex = null;
-		for (Index i : frontier) {
-			int currentCheapest = getManhattanDistance(i, goal) + getPathLength(i);
-			if (currentCheapest < cheapest) {
-				cheapest = currentCheapest;
-				closestIndex = i;
-			}
-		}
-		return closestIndex;
-	}
-	
-	public Index getCheese(List<Index> frontier, Index goal) {
 		int cheapest = Integer.MAX_VALUE;
 		Index closestIndex = null;
 		for (Index i : frontier) {
