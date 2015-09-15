@@ -1,0 +1,2 @@
+src/searchAlgorithms/Astar.javasrc/searchAlgorithms/AstarCheese.javasrc/searchAlgorithms/BFS.javasrc/searchAlgorithms/CheeseIndex.javasrc/searchAlgorithms/DFS.javasrc/searchAlgorithms/GreedyBestFirstSearch.javasrc/searchAlgorithms/Index.javasrc/searchAlgorithms/InformedSearch.javasrc/searchAlgorithms/Search.javasrc/searchAlgorithms/SearchIOHelper.java
+src/main/Tester.java

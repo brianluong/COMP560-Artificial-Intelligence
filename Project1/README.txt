@@ -1,9 +1,8 @@
 Opening the file:
 
-Using Command Line, open the directory where you saved the project.
-
-Compile the project by running the command: javac Project1.java
-
-Run the project by running the code: java Project1
+1. Using Command Line, navigate to the folder Project1.
+2. Run the command javac @compile.txt
+3. Run the command cd src
+4. Run the command java main/Tester
 
 Will open for both MACs and PCs
