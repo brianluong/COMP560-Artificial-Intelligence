@@ -101,9 +101,9 @@ public class Tester {
 		AstarCheese aStarCheese = new AstarCheese(maze);
 		long scStart = System.currentTimeMillis();
 		List<CheeseIndex> solutionCheeseIndexs = aStarCheese.search();
+		long scTime = System.currentTimeMillis() - scStart;
 		List<Index> cheeses = aStarCheese.cheeses;
 		SearchIOHelper.printMazeWithSolutionCheeses(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet(), cheeses);
-		long scTime = System.currentTimeMillis() - scStart;
 		System.out.println("Took " + scTime / 1000.0 + " sec\n");
 					
 		System.out.println("Tricky Cheese");
@@ -111,19 +111,19 @@ public class Tester {
 		aStarCheese = new AstarCheese(maze);
 		long trickyStart = System.currentTimeMillis();
 		solutionCheeseIndexs = aStarCheese.search();
+		long trickyTime = System.currentTimeMillis() - trickyStart;
 		cheeses = aStarCheese.cheeses;
 		SearchIOHelper.printMazeWithSolutionCheeses(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet(), cheeses);
-		long trickyTime = System.currentTimeMillis() - trickyStart;
 		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
 		
-		System.out.println("Medium Cheese");
-		maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/mediumCheese.txt");
-		aStarCheese = new AstarCheese(maze);
-		trickyStart = System.currentTimeMillis();
-		solutionCheeseIndexs = aStarCheese.search();
-		cheeses = aStarCheese.cheeses;
-		SearchIOHelper.printMazeWithSolutionCheeses(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet(), cheeses);
-		trickyTime = System.currentTimeMillis() - trickyStart;
-		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
+//		System.out.println("Medium Cheese");
+//		maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/mediumCheese.txt");
+//		aStarCheese = new AstarCheese(maze);
+//		trickyStart = System.currentTimeMillis();
+//		solutionCheeseIndexs = aStarCheese.search();
+//		trickyTime = System.currentTimeMillis() - trickyStart;
+//		cheeses = aStarCheese.cheeses;
+//		SearchIOHelper.printMazeWithSolutionCheeses(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet(), cheeses);
+//		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
 	}
 }
