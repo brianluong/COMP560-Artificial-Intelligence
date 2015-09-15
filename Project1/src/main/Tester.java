@@ -116,14 +116,16 @@ public class Tester {
 		SearchIOHelper.printMazeWithSolutionCheeses(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet(), cheeses);
 		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
 		
-//		System.out.println("Medium Cheese");
-//		maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/mediumCheese.txt");
-//		aStarCheese = new AstarCheese(maze);
-//		trickyStart = System.currentTimeMillis();
-//		solutionCheeseIndexs = aStarCheese.search();
-//		trickyTime = System.currentTimeMillis() - trickyStart;
-//		cheeses = aStarCheese.cheeses;
+		System.out.println("Medium Cheese");
+		maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/mediumCheese.txt");
+		aStarCheese = new AstarCheese(maze);
+		trickyStart = System.currentTimeMillis();
+		System.out.println("Please wait....");
+		solutionCheeseIndexs = aStarCheese.search();
+		trickyTime = System.currentTimeMillis() - trickyStart;
+		cheeses = aStarCheese.cheeses;
+		SearchIOHelper.printingAnimation(maze, solutionCheeseIndexs);
 //		SearchIOHelper.printMazeWithSolutionCheeses(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet(), cheeses);
-//		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
+		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
 	}
 }

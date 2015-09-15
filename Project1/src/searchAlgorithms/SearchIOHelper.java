@@ -105,7 +105,56 @@ public class SearchIOHelper {
 		System.out.println("Total Nodes Expanded: " + expanded.size());
 	}
 	
+	public static void printingAnimation(char[][] maze, List<CheeseIndex> solutionPath) {
+		int s = solutionPath.size() - 1;
+		while (solutionPath.size() > 0) {
+			clearConsole();
+			char[][] temp = copyMaze(maze);
+			CheeseIndex index = solutionPath.remove(s--);
+			temp[index.row][index.column] = 'x';
+			repeatPrint(temp);
+		}
+	}
 	
+	private static char[][] copyMaze(char[][] maze) {
+		char[][] temp = new char[maze.length][maze[0].length];
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+				temp[i][j] = maze[i][j];
+			}
+		}
+		return temp;
+	}
+	
+	public final static void clearConsole()
+	{
+	    try
+	    {
+	        final String os = System.getProperty("os.name");
+
+	        if (os.contains("Windows"))
+	        {
+	            Runtime.getRuntime().exec("cls");
+	        }
+	        else
+	        {
+	            Runtime.getRuntime().exec("clear");
+	        }
+	    }
+	    catch (final Exception e)
+	    {
+	        //  Handle any exceptions.
+	    }
+	}
+	
+	private static void repeatPrint(char[][] maze) {
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+				System.out.print(maze[i][j]);
+			}
+			System.out.println();
+		}
+	}
 	public static void printSearchResults(char[][] maze, List<Index> solutionPath, Set<Index> expanded) {
 		System.out.println("Unsolved Maze");
 		printMaze(maze);
