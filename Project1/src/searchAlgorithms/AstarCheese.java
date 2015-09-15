@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AstarCheese extends InformedSearch<CheeseIndex>{
 
-	List<Index> cheeses;
+	public List<Index> cheeses;
 	
 	public AstarCheese(char[][] maze) throws InstantiationException, IllegalAccessException {
 		super(maze, CheeseIndex.class);

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -67,12 +68,33 @@ public class SearchIOHelper {
 		System.out.println("Total Nodes Expanded: " + expanded.size());
 	}
 	
-	public static void printMazeWithSolution2(char[][] maze, List<CheeseIndex> solutionPath, Set<CheeseIndex> expanded) {
+	public static void printMazeWithSolutionCheeses(char[][] maze, List<CheeseIndex> solutionPath, Set<CheeseIndex> expanded, List<Index> cheeses) {
+		HashMap<Index, Character> map = new HashMap<>();
+		int counterInt = 49;
+		int counterChar = 97;
+		
+		for (int i = solutionPath.size() - 1; i >= 0; i--) {
+			Index tempIndex = new Index(solutionPath.get(i).row, solutionPath.get(i).column, null);
+			if (cheeses.contains(tempIndex) && !map.keySet().contains(tempIndex)) {
+				if (counterInt > 57) {
+					map.put(tempIndex, (char)counterChar++);	
+				} else {
+					map.put(tempIndex, (char)counterInt++);
+				}
+			}
+		}
+		
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[0].length; j++) {
 				Index ind = new Index(i, j, null);
 				if (solutionPath.contains(ind) && maze[i][j] != Search.START && maze[i][j] != Search.GOAL) {
-					System.out.print('x');
+					if (cheeses.contains(ind)) {
+						System.out.print(map.get(ind));
+					} else if (maze[i][j]== Search.START ){
+						System.out.print('S');	
+					} else {
+						System.out.print(maze[i][j]);	
+					}
 				} else {
 					System.out.print(maze[i][j]);	
 				}
@@ -82,8 +104,6 @@ public class SearchIOHelper {
 		System.out.println("Total Path Cost: " + solutionPath.size());
 		System.out.println("Total Nodes Expanded: " + expanded.size());
 	}
-	
-	
 	
 	
 	public static void printSearchResults(char[][] maze, List<Index> solutionPath, Set<Index> expanded) {

@@ -101,7 +101,8 @@ public class Tester {
 		AstarCheese aStarCheese = new AstarCheese(maze);
 		long scStart = System.currentTimeMillis();
 		List<CheeseIndex> solutionCheeseIndexs = aStarCheese.search();
-		SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
+		List<Index> cheeses = aStarCheese.cheeses;
+		SearchIOHelper.printMazeWithSolutionCheeses(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet(), cheeses);
 		long scTime = System.currentTimeMillis() - scStart;
 		System.out.println("Took " + scTime / 1000.0 + " sec\n");
 					
@@ -110,17 +111,18 @@ public class Tester {
 		aStarCheese = new AstarCheese(maze);
 		long trickyStart = System.currentTimeMillis();
 		solutionCheeseIndexs = aStarCheese.search();
-		SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
+		cheeses = aStarCheese.cheeses;
+		SearchIOHelper.printMazeWithSolutionCheeses(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet(), cheeses);
 		long trickyTime = System.currentTimeMillis() - trickyStart;
 		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
 		
-		System.out.println("Medium Cheese");
-		maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/mediumCheese.txt");
-		aStarCheese = new AstarCheese(maze);
-		trickyStart = System.currentTimeMillis();
-		solutionCheeseIndexs = aStarCheese.search();
-		SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
-		trickyTime = System.currentTimeMillis() - trickyStart;
-		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
+//		System.out.println("Medium Cheese");
+//		maze = SearchIOHelper.generate2DArrayMazeFromInput("../mazes/mediumCheese.txt");
+//		aStarCheese = new AstarCheese(maze);
+//		trickyStart = System.currentTimeMillis();
+//		solutionCheeseIndexs = aStarCheese.search();
+//		SearchIOHelper.printMazeWithSolution2(maze, solutionCheeseIndexs, aStarCheese.getExpandedSet());
+//		trickyTime = System.currentTimeMillis() - trickyStart;
+//		System.out.println("Took " + trickyTime / 1000.0 + " sec\n");
 	}
 }
